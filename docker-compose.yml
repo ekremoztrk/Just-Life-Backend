@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mysqldb:
+    image: mysql:5.7
+    container_name: mysqldb
+    environment:
+        MYSQL_DATABASE: just-life-db
+        MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - default
+
+  just-life-be:
+    build: .
+    depends_on:
+      - mysqldb
+    container_name: just-life-be-con
+    ports:
+      - 8080:8080
+    networks:
+      - default
+  
+networks:
+  default:
+    external: false
+    name: just-life-net
